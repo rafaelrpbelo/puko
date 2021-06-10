@@ -22,6 +22,5 @@ func _physics_process(delta):
 			move_and_slide(direction.normalized() * move_speed, Vector3.UP)
 
 func move_to(target_pos):
-	print("Player", "target_pos", target_pos)
 	path = nav.get_simple_path(global_transform.origin, target_pos)
 	path_node = 0
