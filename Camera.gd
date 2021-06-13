@@ -24,6 +24,9 @@ func _input(event: InputEvent) -> void:
 	_bind_movement(event)
 
 func _bind_zoom(delta: float) -> void:
+	if zoom_direction == 0:
+		pass
+
 	var new_zoom = clamp(
 		translation.z + zoom_speed * delta * zoom_direction,
 		min_zoom,
