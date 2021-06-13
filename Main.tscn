@@ -105,14 +105,15 @@ shape = SubResource( 10 )
 mesh = SubResource( 11 )
 material/0 = SubResource( 12 )
 
-[node name="CameraController" type="Spatial" parent="Map/Player"]
+[node name="CameraGimbal" type="Spatial" parent="Map/Player"]
+
+[node name="CameraController" type="Spatial" parent="Map/Player/CameraGimbal"]
 transform = Transform( -1.62921e-07, 0.707107, -0.707107, 0, 0.707107, 0.707107, 1, 1.15202e-07, -1.15202e-07, -10, 10, 0 )
 __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="Camera" type="Camera" parent="Map/Player/CameraController"]
-transform = Transform( 1, 7.10543e-15, 7.10543e-15, 0, 1, -1.32716e-14, 0, -1.32716e-14, 1, 0, 0, 0 )
+[node name="Camera" type="Camera" parent="Map/Player/CameraGimbal/CameraController"]
+transform = Transform( 1, 5.68434e-13, -5.68434e-13, 0, 1, -1.32716e-14, 0, -1.32716e-14, 1, 1.01441, 1.19209e-07, 0 )
 script = ExtResource( 2 )
-zoom_speed = 25.0
-zoom_speed_damp = 0.9
+gimbal_path = NodePath("../..")

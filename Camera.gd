@@ -11,6 +11,12 @@ export(float, 0.5, 0.9) var zoom_speed_damp = 0.9
 export(float) var min_zoom = -8.0
 export(float) var max_zoom = 8.0
 
+# Rotation Settings
+export(float, 0.001, 0.01) var rotation_sensibility = 0.005
+
+export(NodePath) var gimbal_path
+onready var gimbal = get_node(gimbal_path)
+
 func _process(delta):
 	_bind_zoom(delta)
 
@@ -22,6 +28,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _input(event: InputEvent) -> void:
 	_bind_movement(event)
+	_bind_rotation(event)
 
 func _bind_zoom(delta: float) -> void:
 	if zoom_direction == 0:
@@ -52,3 +59,7 @@ func _bind_movement(event: InputEvent) -> void:
 
 		if result:
 			get_tree().call_group("player", "move_to", result.position)
+
+func _bind_rotation(event: InputEvent) -> void:
+	if event is InputEventMouseMotion and Input.is_action_pressed("camera_rotate"):
+		gimbal.global_rotate(Vector3.DOWN, event.relative.x * rotation_sensibility)
