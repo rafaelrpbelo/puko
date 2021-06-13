@@ -117,3 +117,4 @@ __meta__ = {
 transform = Transform( 1, 5.68434e-13, -5.68434e-13, 0, 1, -1.32716e-14, 0, -1.32716e-14, 1, 1.01441, 1.19209e-07, 0 )
 script = ExtResource( 2 )
 gimbal_path = NodePath("../..")
+player_path = NodePath("../../..")

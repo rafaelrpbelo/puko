@@ -9,9 +9,6 @@ const point = Vector3(52, 12, 0)
 
 onready var nav = get_parent()
 
-func _ready():
-	add_to_group("player")
-	
 func _physics_process(delta):
 	if path_node < path.size():
 		var direction = (path[path_node] - global_transform.origin)

@@ -17,6 +17,9 @@ export(float, 0.001, 0.01) var rotation_sensibility = 0.005
 export(NodePath) var gimbal_path
 onready var gimbal = get_node(gimbal_path)
 
+export(NodePath) var player_path
+onready var player = get_node(player_path)
+
 func _process(delta):
 	_bind_zoom(delta)
 
@@ -58,7 +61,7 @@ func _bind_movement(event: InputEvent) -> void:
 		var result = space_state.intersect_ray(from, to, [], 1)
 
 		if result:
-			get_tree().call_group("player", "move_to", result.position)
+			player.move_to(result.position)
 
 func _bind_rotation(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.is_action_pressed("camera_rotate"):
