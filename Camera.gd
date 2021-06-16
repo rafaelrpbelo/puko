@@ -49,7 +49,7 @@ func _input(event: InputEvent) -> void:
 
 func _bind_zoom(delta: float) -> void:
 	if zoom_direction == 0:
-		pass
+		return
 
 	var new_zoom: float
 
