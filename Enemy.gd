@@ -13,6 +13,7 @@ onready var nav = get_node(navigation_path) as Navigation
 onready var timer: Timer = $Timer
 
 func _ready():
+	add_to_group("enemy")
 	timer.wait_time = reaction_time
 
 func _physics_process(delta):
