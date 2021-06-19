@@ -48,7 +48,7 @@ material/0 = SubResource( 3 )
 shape = SubResource( 4 )
 
 [node name="MeshInstance7" type="MeshInstance" parent="Map/NavigationMeshInstance"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -48.6686, 5.21436, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -48.702, 5.214, 0 )
 mesh = SubResource( 2 )
 material/0 = SubResource( 3 )
 
