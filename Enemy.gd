@@ -3,6 +3,7 @@ extends KinematicBody
 export(float, 1, 10) var move_speed = 3
 export(NodePath) var navigation_path
 export(float, 0.1, 5) var reaction_time = 1
+export(bool) var aggressive = true
 
 var targets: Array = []
 var path = []
@@ -28,7 +29,7 @@ func move_to(target_pos: Vector3):
 
 func _on_body_entered(body: Node) -> void:
 	# FIXME: Improve. Should not use body.name
-	if body is KinematicBody and body.name == "Player":
+	if aggressive and body is KinematicBody and body.name == "Player":
 		timer.start()
 
 		# FIXME: Sort all targets to follow the nearest one
