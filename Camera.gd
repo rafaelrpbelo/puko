@@ -1,5 +1,7 @@
 extends Camera
 
+signal interacting(collider)
+
 const RAY_LENGTH = 1000
 const ZOOM_STOP_THRESHOLD = 0.001
 
@@ -47,6 +49,12 @@ func _input(event: InputEvent) -> void:
 	_bind_movement(event)
 	_bind_rotation(event)
 
+	if event is InputEventMouseButton and Input.is_action_just_pressed("interact"):
+		var result = _get_space_object_from_ray(event.position)
+
+		if "collider" in result:
+			emit_signal("interacting", result.collider)
+
 func _bind_zoom(delta: float) -> void:
 	if zoom_direction == 0:
 		return
@@ -80,11 +88,7 @@ func _bind_zoom(delta: float) -> void:
 
 func _bind_movement(event: InputEvent) -> void:
 	if event is InputEventMouseButton and Input.is_action_just_pressed("move"):
-		var from = project_ray_origin(event.position)
-		var to = from + project_ray_normal(event.position) * RAY_LENGTH
-		var space_state = get_world().direct_space_state
-
-		var result = space_state.intersect_ray(from, to, [], 1)
+		var result = _get_space_object_from_ray(event.position)
 
 		if result:
 			player.move_to(result.position)
@@ -113,3 +117,10 @@ func _bind_rotation_reset(delta: float) -> void:
 
 func _can_reset_rotation() -> bool:
 	return gimbal.rotation_degrees.y != 0
+
+func _get_space_object_from_ray(position: Vector2) -> PhysicsDirectSpaceState:
+	var from = project_ray_origin(position)
+	var to = from + project_ray_normal(position) * RAY_LENGTH
+	var space_state = get_world().direct_space_state
+
+	return space_state.intersect_ray(from, to, [], 1)
