@@ -28,6 +28,11 @@ func move_to(target_pos: Vector3):
 	path_node = 0
 	path = nav.get_simple_path(global_transform.origin, target_pos)
 
+func receive_attack(enemy: KinematicBody) -> void:
+	if targets.find(enemy) < 0:
+		targets.push_back(enemy)
+		timer.start()
+
 func _on_body_entered(body: Node) -> void:
 	# FIXME: Improve. Should not use body.name
 	if aggressive and body is KinematicBody and body.name == "Player":
@@ -37,6 +42,7 @@ func _on_body_entered(body: Node) -> void:
 		targets.push_back(body)
 
 func _on_body_exited(body):
+	print("left: ", body)
 	targets.remove(targets.find(body))
 
 	if targets.size() == 0:
@@ -45,6 +51,5 @@ func _on_body_exited(body):
 		timer.stop()
 
 func _on_timeout():
-	print("timeout")
 	if targets.size() > 0:
 		move_to(targets[0].global_transform.origin)

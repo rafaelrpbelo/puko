@@ -29,7 +29,7 @@ func move_to(target_pos):
 
 func _process_atack():
 	if selected and enemies_on_range.find(selected) > -1:
-		print("attacking...")
+		selected.receive_attack (self)
 
 func _on_interacting(collider: Node) -> void:
 	if collider.is_in_group("enemy"):
